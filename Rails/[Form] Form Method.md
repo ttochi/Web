@@ -9,7 +9,7 @@ Rails에서 입력 양식 `<form> 태그`와 관련한 view helper는 크게 2�
 
 ### 1.1 form_tag 메소드
 `form_tag` 메소드는 검색어를 받는 경우와 같이 모델과 관련되지 않는 경우에 주로 쓰인다.
-```RHTML
+```ruby
 form_tag [url] [option] do
     ...
 end
@@ -23,7 +23,7 @@ end
 
 ### 1.2 *_tag 헬퍼
 `form_tag` 메소드에서는 form 양식으로 끝에 `_tag`가 붙는 `*_tag` 헬퍼를 사용한다.
-```RHTML
+```ruby
 text_field_tag [name] [value] [option]
 ```
 
@@ -58,7 +58,7 @@ output:
 
 ### 2.1 form_for 메소드
 `form_for` 메소드는 특정 모델의 생성 및 편집 작업을 할 때 쓰인다.
-```RHTML
+```ruby
 form_for [var] [option] do |f|
     ...
 end
@@ -72,7 +72,7 @@ end
 
 ### 2.2 f.* 헬퍼
 `form_for` 메서드에서는 form 양식으로 모델 객체 `f.`으로 호출하는 `f.*` 헬퍼를 사용한다.
-```RHTML
+```ruby
 f.text_field [prop] [option]
 ```
 
