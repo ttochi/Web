@@ -124,7 +124,18 @@ cancel_user_registration GET    /users/cancel(.:format)           devise/registr
 ```
 
 `rake db:migrate`를 실행하고 서버를 재시작한다.<br>
-devise 뷰 템플릿을 사용하려면 `$ rails g devise:views`를 수행하자
+
+## Devise View 설정
+devise에서 제공하는 뷰 템플릿을 사용하려면 `rails g devise:views`를 수행하자<br>
+그러면 기본적으로 `view/devise` 디렉토리가 형성되고 모든 devise 관련 뷰는 이곳을 통하게 된다.<br>
+만약 devise 모델이 `User`와 `Admin`과 같이 여러 개이고 view를 각각 다르게 해주고 싶다면 다음과 같이 설정해주자<br>
+
+config/initializer/devise.rb:
+```ruby
+    config.scoped_views = true
+```
+
+`sessions/new`를 rendering 하기 전에 `users/sessions/new`를 먼저 체크한다.
 
 ## Custom Field 추가하기
 User 모델에 `nickname`이라는 column 속성을 추가하고 회원 가입을 할 때 `nickname`값을 같이 받는 작업을 진행하자.
