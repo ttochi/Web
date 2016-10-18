@@ -4,7 +4,7 @@ Devise gem은 회원가입/인증/권한설정 등을 구현하기 위한 대표
 [Devise Github](https://github.com/plataformatec/devise)<br>
 [Gitbook](https://www.gitbook.com/book/luciuschoi/exploring_devise/details)을 참조하면서 샘플 프로젝트 작성을 진행한다!
 
-## Devise Setup
+## 1. Devise Setup
 회원인증 및 권한설정을 위해 `Gemfile`에 아래 젬들을 설치한다.
 ```ruby
 gem 'devise'     # 회원가입 및 인증
@@ -55,7 +55,7 @@ Some setup you must do manually if you havent yet:
 > `config/initializers/devise.rb`에서 devise와 관련된 다양한 정보들을 설정할 수 있다.<br>
 > no-reply 메일주소나 비밀번호 최소 길이 등등..
 
-## User Model 생성
+## 2. User Model 생성
 
 devise 젬에서 필요로 하는 User model을 생성한다.
 ```bash
@@ -65,6 +65,7 @@ $ rails g devise User
 위의 명령어로 user의 migration 파일과 model 파일이 생성된다.
 
 **본인 확인 메일 관련 설정**
+
 만약 회원등록시 본인 확인 메일을 보내려면 아래와 같은 작업을 진행한다.<br>
 우선 `db/migrate/20140528023115_devise_create_users.rb` 파일에서 `## Confirmable` 부분 아래의 네 줄과 하단의 세번째 add_index 부분의 커멘트 처리 부호를 제거하자
 ```ruby
@@ -125,19 +126,20 @@ cancel_user_registration GET    /users/cancel(.:format)           devise/registr
 
 `rake db:migrate`를 실행하고 서버를 재시작한다.<br>
 
-## Devise View 설정
+## 3. Devise View 설정
 devise에서 제공하는 뷰 템플릿을 사용하려면 `rails g devise:views`를 수행하자<br>
 그러면 기본적으로 `view/devise` 디렉토리가 형성되고 모든 devise 관련 뷰는 이곳을 통하게 된다.<br>
 만약 devise 모델이 `User`와 `Admin`과 같이 여러 개이고 view를 각각 다르게 해주고 싶다면 다음과 같이 설정해주자<br>
 
 config/initializer/devise.rb:
 ```ruby
-    config.scoped_views = true
+config.scoped_views = true
 ```
 
 `sessions/new`를 rendering 하기 전에 `users/sessions/new`를 먼저 체크한다.
+`devise` 폴더가 아닌 `users` / `admins` 폴더를 먼저 확인하는 것!
 
-## Custom Field 추가하기
+## 4. Custom Field 추가하기
 User 모델에 `nickname`이라는 column 속성을 추가하고 회원 가입을 할 때 `nickname`값을 같이 받는 작업을 진행하자.
 
 ### 1) Migration 파일 수정
@@ -169,7 +171,7 @@ end
 devise_for :users, :controllers => {registrations: 'registrations'}
 ```
 
-## Devise의 헬퍼메소드
+## 5. Devise의 헬퍼메소드
 devise는 모든 컨트롤러와 액션에서 사용 가능한 헬퍼메소드를 제공한다.
 
 - before_action :authenticate_user!
@@ -200,7 +202,7 @@ devise의 `OmniAuth` gem은 웹어플리케이션에서 다양한 인증 제공�
 
 사용할 수 있는 strategy 목록은 [List of Strategies](https://github.com/omniauth/omniauth/wiki/List-of-Strategies)를 참고하자.
 
-## Facebook 로그인 구현
+## 1. Facebook 로그인 구현
 여기서 수행하는 일련의 과정들은 facebook 뿐 아니라 모든 service provider에서 공통으로 적용된다!
 
 ### 1) Gemfile 수정
@@ -291,46 +293,98 @@ end
 > 유저 정보를 방금 User Model에서 정의한 method를 이용해 불러온다.<br>
 유저가 유효하면 로그인. 그렇지 않으면 회원가입 폼으로 이동.
 
-## 오늘의 집의 SNS 로그인
-오늘의 집에서 페이스북, 카카오톡으로부터 사용자 프로필 이미지 정보를 요구한다.<br>
-이메일 정보와 페스워드 정보는 SNS 인증이 성공적으로 이뤄진 후 추가적으로 요구하여 받는다.
+## 2. 팬메이드 로그인 구현
+팬메이드는 트위터 인증을 기반으로 로그인을 구현하였다.<br>
+하지만 트위터는 이메일을 제공해주지 않고, 이메일을 제공받는다 하더라도 기존 유저와 email과 nickname이 겹칠 수 있는 문제가 있었다.<br>
+이를 해결하기 위해 V앱은 이메일을 따로 받지 않고 SNS 로그인만 가능하도록 하였으며
+Ohouse나 팬마음은 SNS 인증이 성공적으로 이뤄진 후 이메일과 닉네임을 추가적으로 요구하여 받는다.
 
+### 1) User 유무 확인
+트위터로 로그인 한 사용자가 우리 DB에 등록된 사용자인지 확인할 필요가 있다.<br>
 `model/user.rb`에서 아래와 같이 provider와 uid가 일치하는 유저 정보를 가져오는 `find_by_oauth` method를 생성한다.
-
 ```ruby
 def self.find_by_oauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first
     user
 end
 ```
-`controller/omniauth_callback_controller.rb`의 facebook 액션은 다음과 같이 정의된다.
 
+`omniauth_callback_controller`에서 `find_by_oauth` method를 콜하여 가져온 유저 정보가 존재한다면 로그인을 시킨다.
+
+### 2) session에 정보 임시 저장
+`controller/omniauth_callback_controller.rb`의 twitter 액션은 다음과 같이 정의된다.
 ```ruby
-def facebook
+def twitter
     @user = User.find_by_oauth(request.env['omniauth.auth'])
 
     if @user.nil?
-        filename = Time.now.to_i.to_s + '_facebook_' + request.env['omniauth.auth'].uid + '.jpg'
-        User.facebook_profile_resize(request.env['omniauth.auth'].uid, filename)
-
         session[:sns_provider] = request.env['omniauth.auth'].provider
         session[:sns_uid] = request.env['omniauth.auth'].uid
-        session[:sns_profile] = 'https://d12gkpu9h0k5iq.cloudfront.net/uploads/users/profile_images/' + filename
+        session[:profile_image_url] = request.env['omniauth.auth'].info.image
+        session[:location] = request.env['omniauth.auth'].info.location
+        session[:lang] = request.env['omniauth.auth'].extra.raw_info.lang
 
-        respond_to do |format|
-            format.html { redirect_to sns_sign_up_normal_users_path }
-        end
+        redirect_to new_sns_registrations_path
     else
         sign_in_and_redirect @user, event: :authentication
-        set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
-
-        ...중략...
+        set_flash_message(:notice, :success, :kind => "Twitter") if is_navigational_format?
     end
 end
 ```
-`find_by_oauth` method를 콜하여 가져온 유저 정보가 존재한다면 로그인을 시킨다.
 
-유저 정보가 존재하지 않다면 위에서는 `find_by_oauth`에서 새 객체를 생성해주었지만, 추가적으로 email과 password 정보를 가져오기 위해 session에 provider, uid, profile data를 저장하고 `sns_sign_up_normal_users_path` 로 보낸다. -> 추가 정보를 받고 유저 객체 생성
+`find_by_oauth`로 유저 정보 유무를 확인한다.<br>
 
-<br>
+유저 정보가 존재하지 않다면 위에서는 위에서는 `find_by_oauth`에서 새 객체를 생성해주었지만, 여기서는 추가적으로 email과 nickname 정보를 가져오기 위해 session에 provider, uid 등의 개인 정보를 저장하고 `new_sns_registrations_path` 로 보낸다.<br>
+
+유저 정보가 존재하면 기존과 같이 유저를 sign in 시킨다.
+> `sign_in_and_redirect`은 devise의 helper
+
+### 3) sns 가입용 페이지 제작
+sns_registrations_controller를 따로 만들어 sns 가입자 등록을 처리하였다.
+```ruby
+class SnsRegistrationsController < ApplicationController
+    def new
+        if session[:sns_provider].blank?
+            redirect_to root_path
+        else
+            @user = User.new
+        end
+    end
+
+    def create
+        params[:user][:provider] = session[:sns_provider]
+        params[:user][:uid] = session[:sns_uid]
+        params[:user][:profile_image_url] = session[:profile_image_url]
+        params[:user][:location] = session[:location]
+        params[:user][:lang] = session[:lang]
+        params[:user][:password] = Devise.friendly_token(20)
+        params[:user][:password_confirmation] = params[:user][:password]
+
+        @user = User.new(sign_up_params)
+
+        respond_to do |format|
+            if @user.save
+                session[:sns_provider] = ''
+                session[:sns_uid] = ''
+                session[:profile_image_url] = ''
+                session[:location] = ''
+                session[:lang] = ''
+
+                format.html { sign_in_and_redirect @user, event: :authentication }
+            else
+                format.html { render action: 'new' }
+            end
+        end
+    end
+
+    private
+    def sign_up_params
+        params.require(:user).permit(User.attribute_names + [:password, :password_confirmation])
+    end
+end
+```
+
+> password와 password_confirmation은 attribute_names에 포함이 안되나보다..
+
+<br><br><br>
 [참고사이트](https://www.digitalocean.com/community/tutorials/how-to-configure-devise-and-omniauth-for-your-rails-application)
