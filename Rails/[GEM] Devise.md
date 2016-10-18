@@ -1,4 +1,4 @@
-#[GEM] Devise
+# Devise
 
 Devise gem은 회원가입/인증/권한설정 등을 구현하기 위한 대표적인 rails gem이다.<br>
 [Devise Github](https://github.com/plataformatec/devise)<br>
