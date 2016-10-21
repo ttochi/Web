@@ -123,16 +123,21 @@ config/locales/ko.yml:
 ```YAML
 ko:
   goods:
-    made_by: '#{name}님의 굿즈'
+    made_by: '%{name}님의 굿즈'
 ```
 
 이와 같이 들여쓰기를 통해 계층 구조를 만들어서 관리한다.<br>
-`goods.made_by`와 같이 키를 사용할 수 있으며 `#{name}`과 같이 값을 동적을 변경할 수 있는 placeholder를 설정할 수 있다.
+`goods.made_by`와 같이 키를 사용할 수 있으며 `%{name}`과 같이 값을 동적을 변경할 수 있는 placeholder를 설정할 수 있다.
 
 #### View 파일 작성
 액션 뷰에서 사전 파일을 참조할 때는 뷰 헬퍼 `t`를 사용한다.
 ```rhtml
 <%= t ‘goods.made_by’, name: @user.name %>
+```
+
+`link_to`와 같이 다른 헬퍼와 함께 사용할 때는 아래와 같이 사용한다.
+```rhtml
+<%= link_to t('.go_to_buy'), @item.form_url, class: 'form_url' %>
 ```
 
 ## 3. 사전 파일의 구조화
@@ -148,7 +153,7 @@ ko:
 ko:
   items:
     show: 
-        made_by: '#{name}님의 굿즈'
+        made_by: '%{name}님의 굿즈'
 ```
 
 #### View 파일 작성
