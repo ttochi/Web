@@ -13,7 +13,12 @@ brew install rbenv ruby-build
 ruby 설치
 ```bash
 rbenv install 2.2.1
+rbenv rehash
+rbenv global 2.2.1
 ```
+
+> `rbenv versions`을 통해 설치된 ruby 버전 목록을 볼 수 있음<br>
+> [여기](http://rorlab.org/rblogs/198) 참조
 
 rails 설치
 ```
