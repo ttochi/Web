@@ -18,10 +18,12 @@ Post는 서버가 처리할 수 있는 파라미터를 보낸다.
 Controller가 HTTP request를 받고 응답을 생성하는데 크게 3가지 방법이 있다.
 
 **render**
+
 브라우저에 다시보내는 full response를 생성<br>
 template, script 등 범용적인 출력
 
 **redirect_to**
+
 브라우저에 HTTP redirect status code를 보낸다<br>
 지정한 주소로 처리를 redirect<br>
 액션을 거쳐서 감

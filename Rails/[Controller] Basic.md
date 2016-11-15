@@ -5,7 +5,7 @@
 ### Request/Response Cycle
 클라이언트가 url 요청을 보냈을 때 발생하는 flow
 
-![request/response](../image/Rails_Controller.svg)
+![request/response](../image/Rails_Controller.png)
 
 1. When a user types URL, the browser makes a request for that URL
 2. The request hits the Rails router (`config/routes.rb`)
