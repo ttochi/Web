@@ -83,6 +83,9 @@ rails server
 6. 컨트롤러에서 브라우저로 결과를 뿌려줌
 
 ### 4. controller 작성
+MVC에서 요청 처리와 관련된 기능을 수행하는 부분이 Controller이다.
+컨트롤러는 모델을 호출해서 결과를 뷰로 출력하는 역할까지 수행한다.
+
 ```bash
 rails generate controller Home
 ```
