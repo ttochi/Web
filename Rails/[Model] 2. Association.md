@@ -1,4 +1,4 @@
-# [Model] Basic
+# [Model] Association
 
 ## 1:N 관계
 `Bulletin`과 `Post`가 1:N의 관계를 가질 때 model 파일에 다음과 같이 관계를 선언해준다.
@@ -58,4 +58,3 @@ add_column 메소드와 add_index 메소드를 수행한다.
 일반적으로 이미 제품에 적용된 migration file을 수정하면 rollback을 수행하기 어렵기 때문에 문제가 생긴다. 따라서 필요한 변경을 수행하는 새로운 migration file을 만들어 소스 관리 도구에 커밋되지 않은 새로운 마이그레이션을 수정하는 편이 상대적으로 무해함.
 
 bulletin_id를 바로 create_posts migration file 내에서 수정하지 않는 이유!
-
