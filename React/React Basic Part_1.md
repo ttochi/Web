@@ -2,7 +2,7 @@
 
 ReactJS는 페이스북 엔지니어들이 개발한 자바스크립트 라이브러리이다.
 
-이번에 Codecademy를 통해 배운 React의 기초 내용을 정리한다.
+이번에 Codecademy를 통해 배운 React의 기초 내용을 정리한다.<br>
 React의 가장 기본적인 개념인 JSX, components, props와 state에 대해 정리하였다.
 
 ## 1. JSX
@@ -10,10 +10,10 @@ React의 가장 기본적인 개념인 JSX, components, props와 state에 대해
 var h1 = <h1>Hello world</h1>;
 ```
 
-위의 코드를 보면 javascript와 html 문법이 섞여있다.
-이렇게 javascript 코드 안에서 사용되는 html이 `JSX` 이다.
-JSX는 React에서 사용하기 위해 만들어진 syntax extension이다.
-JSX는 웹 브라우저가 읽을 수 있는 javascript 문법은 아니다.
+위의 코드를 보면 javascript와 html 문법이 섞여있다.<br>
+이렇게 javascript 코드 안에서 사용되는 html이 `JSX` 이다.<br>
+JSX는 React에서 사용하기 위해 만들어진 syntax extension이다.<br>
+JSX는 웹 브라우저가 읽을 수 있는 javascript 문법은 아니다.<br>
 Javascirpt 파일에 JSX 코드가 섞여있다면 해당 파일은 `JSX compiler`를 통해 컴파일이 이루어져야 한다.
 
 ### 1.1 JSX element
@@ -21,18 +21,18 @@ Javascirpt 파일에 JSX 코드가 섞여있다면 해당 파일은 `JSX compile
 <h1>Hello world</h1>
 ```
 
-JSX element는 위 코드와 같이 HTML와 매우 흡사하다!
+JSX element는 위 코드와 같이 HTML와 매우 흡사하다!<br>
 HTML처럼 nested도 가능하고 태그 속성도 자유롭게 넣을 수 있다.
 
 JSX element는 자바스크립트처럼 사용이 가능하다. 즉, 변수값으로 지정될 수도 있고 함수에 전달될 수 있다. 또한 object나 array에 저장할 수도 있다.
 
-> 만약 JSX element가 여러 줄을 차지하는 경우는 `()`를 통해 감싸줘야 한다.
+> 만약 JSX element가 여러 줄을 차지하는 경우는 `()`를 통해 감싸줘야 한다.<br>
 > 주의! 하나의 JSX element는 하나의 outermost tag를 갖는다.
 
 JSX element를 선언하는 법을 배웠다. 이제 이 element를 어떻게 화면에 띄울 것인가.
 
 ### 1.2 Rendering JSX
-`ReactDOM`은 리액트 메소드를 담고 있는 자바스크립트 라이브러리의 이름이다.
+`ReactDOM`은 리액트 메소드를 담고 있는 자바스크립트 라이브러리의 이름이다.<br>
 `ReactDOM.render`를 통해서 JSX를 렌더링한다. JSX 표현에 대한 DOM node를 생성하고 트리에 이어붙인다.
 ```jsx
 var React = require('react');
@@ -44,7 +44,7 @@ ReactDOM.render(<h1>Hello world</h1>, document.getElementById('app'));
 위의 코드에서처럼 `ReactDOM.render`의 첫번째 argument로 `<h1>Hello world</h1>`와 같이 렌더링 시키고자 하는 JSX element가 온다. 이 element는 이어지는 두번째 arguement에 append 된다.
 
 ### 1.3 Virtual DOM
-`ReactDOM.render`는 변화가 생긴 DOM element에 대해서만 update를 한다.
+`ReactDOM.render`는 변화가 생긴 DOM element에 대해서만 update를 한다.<br>
 무슨말이냐 하면, 아래와 같은 코드를 실행시킨다고 할 때, 두번째 줄에 대한 코드는 수행되지 않는다는 것이다.
 ```jsx
 var hello = <h1>Hello world</h1>;
@@ -56,7 +56,7 @@ ReactDOM.render(hello, document.getElementById('app'));
 ReactDOM.render(hello, document.getElementById('app'));
 ```
 
-오직 필요한 DOM element만 업데이트 시킨다는게 React에서 정말 중요한 부분이다!
+오직 필요한 DOM element만 업데이트 시킨다는게 React에서 정말 중요한 부분이다!<br>
 이는 `virtual DOM`이라는 개념덕분에 가능한 것이다.
 
 DOM manipulation은 다른 자바스크립트 기능보다 느리다. <u>대부분의 자바스크립트 프레임워크가 DOM을 필요 이상으로 자주 업데이트 하여 속도가 더 느려진다.</u>
@@ -65,7 +65,7 @@ DOM manipulation은 다른 자바스크립트 기능보다 느리다. <u>대부�
 
 React에서는 모든 DOM 객체에 대해서 `virtual DOM`이 상응된다. `virtual DOM`은 DOM 객체를 나타낸다고 보면 되며 진짜 DOM 객체와 같은 속성을 갖는다. (하지만 진짜로 화면상에서 무언가를 바꾸지는 못한다.) DOM manipulation은 느리지만 `virtual DOM` manipulation은 화면에 그려지는게 없으므로 훨씬 빠르다.
 
-JSX element를 렌더링할 때 모든 `virtual DOM`이 새로 업데이트된다. (비효율적이라고 느껴지지만 실제로 매우 빠른 속도로 업데이트 되므로 cost가 크진 않다)
+JSX element를 렌더링할 때 모든 `virtual DOM`이 새로 업데이트된다. (비효율적이라고 느껴지지만 실제로 매우 빠른 속도로 업데이트 되므로 cost가 크진 않다)<br>
 `virtual DOM`이 업데이트되면 React에서는 업데이트 된 `virtual DOM`과 업데이트 되기 직전 `virtual DOM`의 스냅샷을 비교하여 어떤 virtual DOM 객체가 변화하였는지를 잡아낸다. 이 과정을 `diffing`이라고 한다.
 
 React에서 변화된 `virtual DOM` 객체에 대해서만 실제 DOM을 업데이트시킨다. 이렇게 필요한 DOM만 업데이트 시키므로써 퍼포먼스가 급격히 증가하는 것이다.
@@ -213,7 +213,7 @@ var listItems = navigations.map(function(string){
 <ul>{listItems}</ul>
 ```
 
-만약 이 코드를 그대로 돌리면 `key`값이 제공되어야 한다는 warning message가 뜬다.
+만약 이 코드를 그대로 돌리면 `key`값이 제공되어야 한다는 warning message가 뜬다.<br>
 `key`는 list의 순서를 확실하게 정해주기 위해 JSX 내부적으로 사용되는 속성이다.
 ```jsx
 var navigations = ['Home', 'Shop', 'About Me'];
@@ -275,7 +275,7 @@ var ReactDOM = require('react-dom');
 ### 3.2 Component Class
 모든 `component`는 `component class`에서 온다. component class는 component를 만드는 공장과도 같은 느낌인데, component class에서 component를 원하는 만큼 만들어낼 수 있다.
 
-Component class를 만들려면 React library method인 `React.createClass`를 사용한다.
+Component class를 만들려면 React library method인 `React.createClass`를 사용한다.<br>
 Component class를 계속 재사용하기 위해 변수에 저장해놓는다. 이 때, **변수명은 반드시 대문자로 시작해야한다!**
 ```jsx
 var MyComponentClass = React.createClass({
@@ -296,7 +296,7 @@ var instructionObject = {
 };
 ```
 
-`instruction object`는 `render` 함수를 포함한다. render 함수는 JSX expression을 return한다.
+`instruction object`는 `render` 함수를 포함한다. render 함수는 JSX expression을 return한다.<br>
 왜 render 함수를 포함한 object가 instruction object가 되는지는 뒤에서 설명한다.
 
 > 위의 코드는 설명을 위해 instruction object를 변수에 따로 저장하였지만 보통은 `React.createClass` 안에서 바로 선언한다
@@ -312,11 +312,10 @@ var instructionObject = {
 
 **Render Component**
 
-자, `React.createClass`는 `instruction object`를 argument로 갖는다.
-component class가 component를 생성할 때, 해당 component는 그 component class가 갖는 instruction object를 상속하게 된다.
-즉, `<MyComponentClass />` component는 `MyComponentClass`의 render 함수를 갖는 것이다.
+자, `React.createClass`는 `instruction object`를 argument로 갖는다.<br>
+component class가 component를 생성할 때, 해당 component는 그 component class가 갖는 instruction object를 상속하게 된다. 즉, `<MyComponentClass />` component는 `MyComponentClass`의 render 함수를 갖는 것이다.
 
-component가 render 함수를 갖고있기 때문에 DOM에 렌더링 시킬 수 있게 된다.
+component가 render 함수를 갖고있기 때문에 DOM에 렌더링 시킬 수 있게 된다.<br>
 component의 render 함수를 부르기 위해 해당 component를 `ReactDOM.render`에 전달한다.
 ```jsx
 ReactDOM.render(
@@ -365,7 +364,7 @@ ReactDOM.render(<MyName />, document.getElementById('app'));
 * `this`로 createClass object에 다른 속성값을 정의하고 invoke할 수 있다.
 
 ## 4. Components Interacting
-React에는 수많은 component들이 쓰인다. 이 component들이 결합되었을 때 그 효과는 매우 크다.
+React에는 수많은 component들이 쓰인다. 이 component들이 결합되었을 때 그 효과는 매우 크다.<br>
 React의 장점은 component 그 자체에서 오는 게 아니라, component interaction에서 온다.
 
 ### 4.1 Components Render Other Components
@@ -378,7 +377,7 @@ var Example = React.createClass({
 });
 ```
 
-지금까지 component class의 render 함수에서 HTML 태그 형태의 JSX를 반환하는 것을 보았다.
+지금까지 component class의 render 함수에서 HTML 태그 형태의 JSX를 반환하는 것을 보았다.<br>
 하지만 render 함수에서 component instance도 반환할 수 있다는 것!
 ```jsx
 var OMG = React.createClass({
@@ -403,18 +402,18 @@ var Crazy = React.createClass({
 
 `ProfilePage.js` 파일에서 `ProfilePage` 컴포넌트 클래스를 정의하고 있으며 `NavBar.js` 파일에서 정의된 `NavBar` 컴포넌트를 render 해야하는 상황을 가정해보자.
 
-하지만 Javascript에서 다른 파일에서 정의된 객체를 불러올 수 없다! 
+하지만 Javascript에서 다른 파일에서 정의된 객체를 불러올 수 없다!<br>
 때문에 `ProfilePage.js`에서 `NavBar.js` 파일을 import 시켜야하는데, 이때 `require` method에 파일경로를 값으로 넣으면 import가 가능하다!
 ```jsx
 var NavBar = require('./NavBar.js');
 ```
 
-> 이런 방식의 모듈 시스템은 React에서만 쓰이는 방법은 아니다! 
+> 이런 방식의 모듈 시스템은 React에서만 쓰이는 방법은 아니다!<br>
 > React의 모듈 시스템은 `Node.js`의 방식을 가져온 것!
 
 **module.export**
 
-`ProfilePage.js` 파일에 `NavBar.js` 파일을 불러오는 데 성공했다. 
+`ProfilePage.js` 파일에 `NavBar.js` 파일을 불러오는 데 성공했다.<br>
 하지만 이 파일이 매우 거대하다면? 필요 없는 로드가 일어날 것이다.
 
 우리가 필요로 하는 부분은 `NavBar` 컴포넌트 클래스이다. 어떻게 `NavBar` 컴포넌트 클래스만 가져올 것인가?
@@ -436,7 +435,7 @@ var NavBar = React.createClass({
 module.exports = NavBar;
 ```
 
-`NavBar.js` 파일에서 다른 파일에서 사용할 expression을 `module.exports`에 넣어준다.
+`NavBar.js` 파일에서 다른 파일에서 사용할 expression을 `module.exports`에 넣어준다.<br>
 그러면 `ProfilePage.js`에서 부른 `require('./NavBar.js')`는 파일 전체가 아닌 `module.export`에 부여된 `NavBar`를 가져오게 된다.
 ```jsx
 // in ProfilePage.js file
@@ -463,26 +462,26 @@ ReactDOM.render(<ProfilePage />, document.getElementById('app'));
 이렇게 component에서 다른 component를 렌더링하면 단순한 component들로도 충분히 복잡한 구조를 만들어낼 수 있다.
 
 ## 5. Props
-지금까지 component가 다른 component를 rendering하여 interaction하는 것을 살펴보았다.
-이번에는 다른 component 간의 interaction 방식을 알아보겠다.
+지금까지 component가 다른 component를 rendering하여 interaction하는 것을 살펴보았다.<br>
+이번에는 서로 다른 component 간의 interaction 방식을 알아보겠다.
 
-component가 다른 component로 정보를 전달할 수 있다!
+한 component가 다른 component로 정보를 전달할 수 있다!<br>
 한 component에서 다른 component로 전달되는 정보가 바로 `props`이다!
 
 ### 5.1 Passing and Accessing Props
-모든 component는 `props`라는 컴포넌트에 대한 정보를 담고있는 객체를 갖는다.
+모든 component는 `props`라는 컴포넌트에 대한 정보를 담고있는 객체를 갖는다.<br>
 `this.props`로 컴포넌트의 `props` 객체에 접근할 수 있다.
 
 **Passing Props**
 
-컴포넌트에 attribute 값을 줌으로써 우리는 컴포넌트에 props를 전달할 수 있다!
+컴포넌트에 attribute 값을 줌으로써 우리는 컴포넌트에 props를 전달할 수 있다!<br>
 attribute의 이름은 마음대로 지정할 수 있다.
 ```jsx
 <MyComponent foo="bar" />
 ```
 
 전달 값이 string이 아니라면 반드시 `{}`로 감싸주어야 한다.
-```
+```jsx
 <MyInfo name="TTochi" age={2} male={false} favorite = {["aaa", "bbb", "ccc"]} />
 ```
 
@@ -498,10 +497,10 @@ attribute의 이름은 마음대로 지정할 수 있다.
 
 **Accessing Props**
 
-props를 전달받은 컴포넌트에서 props에 접근하는 방법은 매우 간단하다.
+props를 전달받은 컴포넌트에서 props에 접근하는 방법은 매우 간단하다.<br>
 컴포넌트 내에서 컴포넌트의 props라는 객체의 특정 정보에 접근하려면 당연히 `this.props.name`을 이용하면 된다!
 
-> 컴포넌트에서 전달받은 정보를 담고있는 객체를 `props`
+> 컴포넌트에서 전달받은 정보를 담고있는 객체를 `props`<br>
 > 그 객체의 요소(정보) 하나 하나가 `prop`
 
 ### 5.2 Using Props in Component
@@ -528,10 +527,10 @@ var Greeting = React.createClass({
 
 **Props as Event Handler**
 
-컴포넌트 내에서 `props`는 태그 속성으로도, 변수값으로도, 함수로도 다양하게 사용될 수 있다.
+컴포넌트 내에서 `props`는 태그 속성으로도, 변수값으로도, 함수로도 다양하게 사용될 수 있다.<br>
 그 중에서 `props`를 event handler 함수로 사용하는 방법에 대해 알아보자.
 
-우선, props로 넘길 event handler 함수를 정의하자.
+우선, props로 넘길 event handler 함수를 정의하자.<br>
 event handler 함수는 **component class의 instruction object 안에서 정의**되는 것이 일반적이다.
 ```jsx
 var Parent = React.createClass({
@@ -629,7 +628,7 @@ React components는 값이 유동적으로 변할 수 있는 `Dynamic informatio
 지금까지 `props`에 대해서 살펴보았고 이제 `state`에 대해 알아보자.
 
 ### 6.1 Initial State
-`props`와는 달리, `state`는 밖으로부터 값을 받아오지 않고 컴포넌트 내에서 값을 정한다.
+밖으로부터 값을 받아오는 `props`와는 달리, `state`는 컴포넌트 내에서 값을 정한다.<br>
 컴포넌트가 `state`를 갖도록 `getInitialState` 함수를 정의해보자!
 ```jsx
 var App = React.createClass({
@@ -642,18 +641,18 @@ var App = React.createClass({
 });
 ```
 
-`App` 컴포넌트는 `{title: 'Best App'}`이라는 내용의 `state` 객체를 갖는다.
+`App` 컴포넌트는 `{title: 'Best App'}`이라는 내용의 `state` 객체를 갖는다.<br>
 컴포넌트의 state 객체의 특정 정보에 접근하려면 당연히 `this.props.name`을 이용하면 된다!
 
 ### 6.2 Change State
-컴포넌트는 `state`값을 읽어올 뿐만 아니라, `setState` 함수를 통해 값을 변경시킬 수도 있다.
+컴포넌트는 `state`값을 읽어올 뿐만 아니라, `setState` 함수를 통해 값을 변경시킬 수도 있다.<br>
 `setState` 함수는 업데이트 시킬 `state` 객체와 콜백함수를 argument로 갖는다. (콜백함수는 사용되진 않는다.)
 
 다음과 같은 state 객체를 갖는 컴포넌트가 있다고 해보자.
 ```json
 {
-  mood:   'great',
-  hungry: false
+  "mood": "great",
+  "hungry": false
 }
 ```
 
@@ -665,12 +664,12 @@ this.setState({ hungry: true });
 위의 함수가 불려진 후의 state 객체는 다음과 같다!
 ```json
 {
-  mood:   'great',
-  hungry: true
+  "mood": "great",
+  "hungry": true
 }
 ```
 
-`this.setState`에서 받은 객체는 현재의 state 객체에 merge 되어지는 것이라서 `mood` 속성은 아무 영향을 받지 않는 것이다.
+`this.setState`에서 받은 객체는 현재의 state 객체에 merge 되어지는 것이라서 `mood` 속성은 아무 영향을 받지 않는 것이다.<br>
 만약 현재의 state 객체에는 없는 속성이 `this.setState`에서 받은 객체에 포함되면 state 객체에 새로운 속성이 하나 추가되는 것이다.
 
 ### 6.3 Using State in Component
@@ -707,20 +706,20 @@ var Toggle = React.createClass({
 ReactDOM.render(<Toggle />, document.getElementById('app'));
 ```
 
-위는 버튼을 클릭할 때마다 배경색이 바뀌는 코드의 일부이다.
+위는 버튼을 클릭할 때마다 배경색이 바뀌는 react 코드의 일부이다.
 
 1. `Toggle` 컴포넌트의 `state` 객체가 `getInitialState` 함수로 정의되어있다.
 2. button의 `onClick` 이벤트 핸들러로 컴포넌트의 `changeColor` 함수를 부른다.
 3. `changeColor` 함수가 불릴 때마다 `this.setState`를 통해 `state` 객체의 `color` 속성을 바꾼다.
 
-자, 이 때 `changeColor` 함수는 `state` 객체의 속성만 바꿀 뿐, 이를 화면에 렌더링하지 않는다! 
-(`Toggle` 컴포넌트의 render 함수를 부르는 곳은 `ReactDom.render` 밖에 없다)
+자, 이 때 `changeColor` 함수는 `state` 객체의 속성만 바꿀 뿐, 이를 화면에 렌더링하지 않는다!<br>
+(`Toggle` 컴포넌트에서 render 함수를 부르는 곳은 `ReactDom.render` 밖에 없다)
 
 그런데 어떻게 버튼을 클릭할 때마다 배경색이 바로 바뀌어서 화면에 렌더링까지 되는걸까?
 
 왜냐하면, `this.setState`가 불릴 때마다 state 값을 바꾼 즉시, **자동으로** `render` 함수까지 부르기 때문이다!
 
-그렇기 때문에 **절대로** `render` 함수 내에서 `this.setState`를 부르면 안된다!
+그렇기 때문에 **절대로** `render` 함수 내에서 `this.setState`를 부르면 안된다!<br>
 (render 함수 내에서 `this.setState`를 부르면 결국 무한루프에 빠지게 된다)
 
 -----
